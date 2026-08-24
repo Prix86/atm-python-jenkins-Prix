@@ -28,7 +28,7 @@ pipeline {
             }
         }
 
-        stage('Ejecutar Pruebas') {
+        stage('Ejecutar Pruebas Python') {
             steps {
                 sh '/usr/bin/python3.11 test_atm.py'
             }
@@ -40,9 +40,9 @@ pipeline {
             }
         }
 
-        stage('Ejecutar Contenedor Docker') {
+        stage('Ejecutar Pruebas en Docker') {
             steps {
-                sh 'docker run --rm atm-python:latest'
+                sh 'docker run --rm atm-python:latest python test_atm.py'
             }
         }
 
