@@ -16,6 +16,12 @@ pipeline {
             }
         }
 
+        stage('Verificar Docker') {
+            steps {
+                sh 'docker --version'
+            }
+        }
+
         stage('Instalar Dependencias') {
             steps {
                 sh '/usr/bin/python3.11 -m pip install -r requirements.txt'
@@ -28,9 +34,21 @@ pipeline {
             }
         }
 
+        stage('Construir Imagen Docker') {
+            steps {
+                sh 'docker build -t atm-python:latest .'
+            }
+        }
+
+        stage('Ejecutar Contenedor Docker') {
+            steps {
+                sh 'docker run --rm atm-python:latest'
+            }
+        }
+
         stage('Finalizado') {
             steps {
-                echo 'Pipeline ejecutado correctamente.'
+                echo 'Pipeline ejecutado correctamente con Python, pruebas y Docker.'
             }
         }
 
