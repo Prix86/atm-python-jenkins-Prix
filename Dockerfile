@@ -1,4 +1,4 @@
-FROM atm-python-base:1.0
+FROM python:3.13-slim
 
 WORKDIR /app
 
