@@ -12,7 +12,7 @@ pipeline {
 
         stage('Verificar Python') {
             steps {
-                sh '/usr/bin/python3 --version'
+                sh 'python3 --version'
             }
         }
 
@@ -24,13 +24,16 @@ pipeline {
 
         stage('Instalar Dependencias') {
             steps {
-                sh '/usr/bin/python3 -m pip install -r requirements.txt'
+                sh '''
+                    python3 -m venv venv
+                    ./venv/bin/python -m pip install --upgrade pip
+                    ./venv/bin/python -m pip install -r requirements.txt
             }
         }
 
         stage('Ejecutar Pruebas Python') {
             steps {
-                sh '/usr/bin/python3 test_atm.py'
+                sh './venv/bin/python test_atm.py'
             }
         }
 
